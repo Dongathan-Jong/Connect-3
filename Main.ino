@@ -1,5 +1,4 @@
 
-
 // include libraries
 #include <Adafruit_NeoPixel.h>
 #include <LiquidCrystal_I2C.h>
@@ -301,6 +300,134 @@ void dropPiece(){
   }
   lcd.clear();
 }
+/*
+checkLink()
+
+Use: check each win case
+*/
+void checkLink(){
+  // will check up and down for the green player and store winning leds in winCase
+  for(int i = 0; i < 4; i++){
+    if(slots[2][i] == 1){
+      if(slots[1][i] == 1){
+        if(slots[0][i] == 1){
+          player1Won = true;
+          winCase[0] = i;
+          winCase[1] = i + 4;
+          winCase[2] = i + 8;
+        }
+      }
+    }
+  }
+  // will check up and down for the red player and store winning leds in winCase
+  for(int i = 0; i < 4; i++){
+    if(slots[2][i] == 2){
+      if(slots[1][i] == 2){
+        if(slots[0][i] == 2){
+          player2Won = true;
+          winCase[0] = i;
+          winCase[1] = i + 4;
+          winCase[2] = i + 8;
+          
+        }
+      }
+    }
+  }
+  // will check left and right for the green player and store winning leds in winCase
+  for(int j = 0; j < 2; j++){
+  	for(int i = 0; i < 3; i++){
+      if(slots[i][0+j] == 1){
+        if(slots[i][1+j] == 1){
+          if(slots[i][2+j] == 1){
+            player1Won = true;
+            winCase[0] = i*4 + j;
+            winCase[1] = i*4 + 1 + j;
+            winCase[2] = i*4 + 2 + j;
+          }
+        }
+      }
+    }
+  }
+  // will check left and right for the red player and store winning leds in winCase
+  for(int j = 0; j < 2; j++){
+  	for(int i = 0; i < 3; i++){
+      if(slots[i][0+j] == 2){
+        if(slots[i][1+j] == 2){
+          if(slots[i][2+j] == 2){
+            player2Won = true;
+            winCase[0] = i*4 + j;
+            winCase[1] = i*4 + 1 + j;
+            winCase[2] = i*4 + 2 + j;
+          }
+        }
+      }
+    }
+  }
+  // will check diagonal case for the red player and store winning leds in winCase
+  for(int i = 0; i < 2; i++){
+    if(slots[0][i] == 2){
+      if(slots[1][i+1] == 2){
+        if(slots[2][i+2] == 2){
+          player2Won = true;
+          winCase[0] = i;
+          winCase[1] = 5+i;
+          winCase[2] = 10+i;
+        }
+      }
+    }
+  }
+  // will check diagonal for the green player and store winning leds in winCase
+  for(int i = 0; i < 2; i++){
+    if(slots[0][i] == 1){
+      if(slots[1][i+1] == 1){
+        if(slots[2][i+2] == 1){
+          player1Won = true;
+          winCase[0] = i;
+          winCase[1] = 5+i;
+          winCase[2] = 10+i;
+        }
+      }
+    }
+  }
+  // will check diagonal for the red player and store winning leds in winCase
+  for(int i = 0; i < 2; i++){
+    if(slots[0][i+2] == 2){
+      if(slots[1][i+1] == 2){
+        if(slots[2][i] == 2){
+          player2Won = true;
+          winCase[0] = 2+i;
+          winCase[1] = 5+i;
+          winCase[2] = 8+i;
+        }
+      }
+    }
+  }
+  // will check diagonal for the green player and store winning leds in winCase
+  for(int i = 0; i < 2; i++){
+    if(slots[0][i+2] == 1){
+      if(slots[1][i+1] == 1){
+        if(slots[2][i] == 1){
+          player1Won = true;
+          winCase[0] = 2+i;
+          winCase[1] = 5+i;
+          winCase[2] = 8+i;
+          lcd.clear();
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
